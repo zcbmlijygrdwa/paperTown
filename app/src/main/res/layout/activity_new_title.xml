@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+
+    android:gravity="center"
     tools:context="zhenyuyang.cec150.ece.ucsb.edu.project.NewTitleActivity">
 
     <TextView
@@ -12,16 +14,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:paddingBottom="20sp"
+        android:paddingTop="50sp"
+        android:text="Title"
+        android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editText_newtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="Give a name to the item   " />
+
+    <Button
+        android:id="@+id/button_newtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Button" />
 
 
 </LinearLayout>

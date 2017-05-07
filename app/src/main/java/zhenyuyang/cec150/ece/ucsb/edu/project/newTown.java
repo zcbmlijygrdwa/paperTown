@@ -1,5 +1,6 @@
 package zhenyuyang.cec150.ece.ucsb.edu.project;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import java.util.List;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class newTown extends AppCompatActivity {
+final int PICK_CONTACT_REQUEST = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +95,10 @@ public class newTown extends AppCompatActivity {
                 if(position==0){
                     Intent intent = new Intent(getApplicationContext(), NewTitleActivity.class);
                     intent.putExtra(EXTRA_MESSAGE, "asdf");
-                    startActivity(intent);
+                    //startActivity(intent);
+                    startActivityForResult(intent, PICK_CONTACT_REQUEST);
                     overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                    //finish();// kill current activity
                 }
 
 
@@ -103,6 +107,26 @@ public class newTown extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        String result=data.getStringExtra("result");
+        Log.i("onActivityResult","result = "+result);
+        if (requestCode == PICK_CONTACT_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+            }
+
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
 
