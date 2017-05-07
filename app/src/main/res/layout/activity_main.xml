@@ -21,13 +21,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <fragment android:name="zhenyuyang.cec150.ece.ucsb.edu.project.SomeFragment"
-        android:id="@+id/headlines_fragment"
+
+
+    <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
-        tools:layout="@layout/some_layout" />
+        tools:layout="@layout/activity_main" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

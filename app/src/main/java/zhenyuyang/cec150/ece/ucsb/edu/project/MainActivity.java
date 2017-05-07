@@ -1,6 +1,7 @@
 package zhenyuyang.cec150.ece.ucsb.edu.project;
 
 import android.Manifest;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,7 +25,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -60,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         context = getApplicationContext();
-        RecyclerView rv = (RecyclerView)findViewById(R.id.recyclerview);
+        RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerview);
         rv.setHasFixedSize(true);  //If you are sure that the size of the RecyclerView won't be changing, you can add the following to improve performance
-        LinearLayoutManager llm = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,
+        LinearLayoutManager llm = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,
                 false);
         rv.setLayoutManager(llm);
 
@@ -72,22 +76,76 @@ public class MainActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
 
         rv.addOnItemTouchListener(
-                new RecyclerItemClickListener(context, rv ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        Log.i("addOnItemTouchListener","onItemClick position ="+position);
+                new RecyclerItemClickListener(context, rv, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Log.i("addOnItemTouchListener", "onItemClick position =" + position);
                         // do whatever
                     }
 
-                    @Override public void onLongItemClick(View view, int position) {
+                    @Override
+                    public void onLongItemClick(View view, int position) {
                         // do whatever
                     }
                 })
         );
 
 
+        SupportMapFragment mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
+
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap map) {
+
+
+                    BitmapDescriptor icon1 = BitmapDescriptorFactory.fromResource(R.drawable.test_marker);
+                    BitmapDescriptor icon2 = BitmapDescriptorFactory.fromResource(R.drawable.test_marker3);
+                    BitmapDescriptor icon3 = BitmapDescriptorFactory.fromResource(R.drawable.test_marker2);
+
+
+                    //add markers
+                    map.addMarker(new MarkerOptions().position(new LatLng(34.415320, -119.840233))
+                            .title("Ohh!")
+                            .snippet("TsadADSadsA")
+                            .icon(icon1));
+
+                    map.addMarker(new MarkerOptions().position(new LatLng(34.416875, -119.826565))
+                            .title("Underclass beauty")
+                            .snippet("Get sunburn in my head")
+                            .icon(icon2));
+
+                    map.addMarker(new MarkerOptions().position(new LatLng(34.409815, -119.845069))
+                            .title("Big thing!")
+                            .snippet("Meat carnival")
+                            .icon(icon3));
+
+                    //end of adding markers
+
+
+                    //camera animation
+                    //map.moveCamera(CameraUpdateFactory.newLatLngZoom(/*some location*/, 10));
+
+                    if (map != null) {
+                        map.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(new LatLng(34.414913, -119.839406), 15));  //gps and zoom level
+                    }
+
+
+                    //end of camera animation
+
+
+                }
+            });
+        } else {
+
+            Log.i("manu", "Error - Map Fragment was null!!");
+        }
+
+
     }
 
-    private void initializeData(){
+    private void initializeData() {
         persons = new ArrayList<>();
         persons.add(new Person("Emma asdfasdffsda", "asdfasdffsda", R.drawable.test));
         persons.add(new Person("asdfasdffsda Maiss", "asdfasdffsda years asdfasdffsda", R.drawable.test));
@@ -126,13 +184,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_search) {
-            Log.i("manu","action_search");
+            Log.i("manu", "action_search");
             return true;
         }
 
 
         if (id == R.id.action_create) {
-            Log.i("manu","action_create");
+            Log.i("manu", "action_create");
 
             Intent intent = new Intent(this, newTown.class);
             intent.putExtra(EXTRA_MESSAGE, "asdf");
@@ -143,5 +201,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+
+
+
     }
 }
