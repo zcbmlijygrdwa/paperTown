@@ -32,7 +32,8 @@
             android:name=".newTown"
             android:label="@string/title_activity_new_town"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NewTitleActivity"></activity>
+        <activity android:name=".NewTitleActivity" />
+        <activity android:name=".NewAddressActivity"></activity>
     </application>
 
 </manifest>

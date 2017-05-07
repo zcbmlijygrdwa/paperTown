@@ -25,7 +25,12 @@ import java.util.List;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class newTown extends AppCompatActivity {
-final int PICK_CONTACT_REQUEST = 999;
+    final int NEW_TITLE_REQUEST = 0;
+    final int NEW_ADDRESS_REQUEST = 0;
+    final int NEW_CATEGORY_REQUEST = 0;
+    final int NEW_INFORMATION_REQUEST = 0;
+
+    String title = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +50,19 @@ final int PICK_CONTACT_REQUEST = 999;
 
 
         final ListView listview = (ListView) findViewById(R.id.listView);
-        String[] values = new String[] { "Add Title",
+        String[] values = new String[]{"Add Title",
                 "Set Address",
                 "Select Category",
                 "Add Description",
                 "Yout Information"};
 
-        String[] decriptions = new String[] { "Give a name to the item",
+        String[] decriptions = new String[]{"Give a name to the item",
                 "Where did you find the item",
                 "What is the type of the item",
                 "Be precise, consise and professional",
                 "Required to keep track of the item"};
 
-        boolean[] checked = new boolean[]{ true,
+        boolean[] checked = new boolean[]{true,
                 true,
                 false,
                 false,
@@ -70,9 +75,7 @@ final int PICK_CONTACT_REQUEST = 999;
         }
 
 
-
         final MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, values);
-
 
         //send data to the adaptor
         adapter.setCheckBoxValue(checked);
@@ -86,20 +89,26 @@ final int PICK_CONTACT_REQUEST = 999;
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
 
-                Log.i("onClick","click");
-                Log.i("onClick","position = "+position);
+                Log.i("onClick", "click");
+                Log.i("onClick", "position = " + position);
 
-                View view1 = getViewByPosition(position,listview);
-                setChecked(view1);
 
-                if(position==0){
+                if (position == 0) {
                     Intent intent = new Intent(getApplicationContext(), NewTitleActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE, "asdf");
-                    //startActivity(intent);
-                    startActivityForResult(intent, PICK_CONTACT_REQUEST);
+                    //intent.putExtra(EXTRA_MESSAGE, "asdf");
+                    startActivityForResult(intent, NEW_TITLE_REQUEST);
                     overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
                     //finish();// kill current activity
                 }
+
+                if (position == 1) {
+                    Intent intent = new Intent(getApplicationContext(), NewAddressActivity.class);
+                    //intent.putExtra(EXTRA_MESSAGE, "asdf");
+                    startActivityForResult(intent, NEW_TITLE_REQUEST);
+                    overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                    //finish();// kill current activity
+                }
+
 
 
             }
@@ -113,21 +122,31 @@ final int PICK_CONTACT_REQUEST = 999;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        String result=data.getStringExtra("result");
-        Log.i("onActivityResult","result = "+result);
-        if (requestCode == PICK_CONTACT_REQUEST) {
+        String result = data.getStringExtra("result");
+
+        if (requestCode == NEW_TITLE_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                // The user picked a contact.
-                // The Intent's data Uri identifies which contact was selected.
-
-                // Do something with the contact here (bigger example below)
+                Log.i("onActivityResult", "result = " + result);
+                title = result;
             }
-
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
             }
         }
+
+
+        if (requestCode == NEW_TITLE_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                Log.i("onActivityResult", "result = " + result);
+                title = result;
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+
     }
 
 
@@ -136,7 +155,7 @@ final int PICK_CONTACT_REQUEST = 999;
         final int firstListItemPosition = listView.getFirstVisiblePosition();
         final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
 
-        if (pos < firstListItemPosition || pos > lastListItemPosition ) {
+        if (pos < firstListItemPosition || pos > lastListItemPosition) {
             return listView.getAdapter().getView(pos, null, listView);
         } else {
             final int childIndex = pos - firstListItemPosition;
@@ -144,15 +163,15 @@ final int PICK_CONTACT_REQUEST = 999;
         }
     }
 
-    void setChecked(View view){
+    void setChecked(View view) {
         ImageView c = (ImageView) view.findViewById(R.id.imageView_check);
-            c.setImageResource(R.drawable.ic_check_box_black_24dp);
+        c.setImageResource(R.drawable.ic_check_box_black_24dp);
 
         TextView title = (TextView) view.findViewById(R.id.title1);
         title.setTextColor(Color.RED);
     }
 
-    void setUnchecked(View view){
+    void setUnchecked(View view) {
         ImageView c = (ImageView) view.findViewById(R.id.imageView_check);
         c.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
 

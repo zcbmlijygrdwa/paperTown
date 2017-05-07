@@ -71,6 +71,19 @@ public class MainActivity extends AppCompatActivity {
         RVAdapter adapter = new RVAdapter(persons);
         rv.setAdapter(adapter);
 
+        rv.addOnItemTouchListener(
+                new RecyclerItemClickListener(context, rv ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Log.i("addOnItemTouchListener","onItemClick position ="+position);
+                        // do whatever
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
+
 
     }
 
