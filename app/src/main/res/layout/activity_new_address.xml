@@ -4,9 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="zhenyuyang.cec150.ece.ucsb.edu.project.NewAddressActivity">
 
 
+    <TextView
+        android:id="@+id/textView_new_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+    <EditText
+        android:id="@+id/editText_new_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <fragment
         android:id="@+id/map_new_address"

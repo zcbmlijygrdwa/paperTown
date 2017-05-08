@@ -98,6 +98,16 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onMapReady(GoogleMap map) {
 
+                    //enable myLocationButton
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        map.setMyLocationEnabled(true);
+                        //map.getUiSettings().setMyLocationButtonEnabled(true);
+                    }
+                    else {
+                        Log.i("manu", "Error - checkSelfPermission!!");
+                    }
+                    //end of enabling myLocationButton
 
                     BitmapDescriptor icon1 = BitmapDescriptorFactory.fromResource(R.drawable.test_marker);
                     BitmapDescriptor icon2 = BitmapDescriptorFactory.fromResource(R.drawable.test_marker3);
