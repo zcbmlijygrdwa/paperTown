@@ -52,6 +52,18 @@ public class NewCategoryActivity extends AppCompatActivity {
             }
         });
 
+        Button button4 = (Button) findViewById(R.id.button_new_category_done);
+        button4.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result","event");
+                setResult(Activity.RESULT_CANCELED);
+                finish();
+            }
+        });
+
 
 
     }

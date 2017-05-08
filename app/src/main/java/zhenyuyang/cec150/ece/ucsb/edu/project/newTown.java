@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ import java.util.List;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class newTown extends AppCompatActivity {
+    static ListView listview;
+
     final int NEW_TITLE_REQUEST = 0;
     final int NEW_ADDRESS_REQUEST = 1;
     final int NEW_CATEGORY_REQUEST = 2;
@@ -32,6 +35,10 @@ public class newTown extends AppCompatActivity {
     final int NEW_INFORMATION_REQUEST =4;
 
     String title = "";
+    String address = "";
+    String category = "";
+    String description = "";
+    String information = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +57,24 @@ public class newTown extends AppCompatActivity {
 //        });
 
 
-        final ListView listview = (ListView) findViewById(R.id.listView);
+
+        //set up imageview onclick
+        ImageView selectImage = (ImageView) findViewById(R.id.imageView);
+        selectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("onClick", "selectImage click");
+//                Toast.makeText(YourActivityName.this,
+//                        "The favorite list would appear on clicking this icon",
+//                        Toast.LENGTH_LONG).show();
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
+
+            }
+        });
+
+        listview = (ListView) findViewById(R.id.listView);
         String[] values = new String[]{"Add Title",
                 "Set Address",
                 "Select Category",
@@ -63,8 +87,8 @@ public class newTown extends AppCompatActivity {
                 "Be precise, consise and professional",
                 "Required to keep track of the item"};
 
-        boolean[] checked = new boolean[]{true,
-                true,
+        boolean[] checked = new boolean[]{false,
+                false,
                 false,
                 false,
                 false};
@@ -168,7 +192,7 @@ public class newTown extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("result");
                 Log.i("onActivityResult", "result = " + result);
-                title = result;
+                address = result;
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("onActivityResult", "NEW_ADDRESS_REQUEST RESULT_CANCELED");
@@ -181,7 +205,7 @@ public class newTown extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("result");
                 Log.i("onActivityResult", "result = " + result);
-                title = result;
+                category = result;
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("onActivityResult", "NEW_CATEGORY_REQUEST RESULT_CANCELED");
@@ -194,7 +218,7 @@ public class newTown extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("result");
                 Log.i("onActivityResult", "result = " + result);
-                title = result;
+                description = result;
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("onActivityResult", "NEW_DESCRIPTION_REQUEST RESULT_CANCELED");
@@ -206,13 +230,17 @@ public class newTown extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("result");
                 Log.i("onActivityResult", "result = " + result);
-                title = result;
+                information = result;
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("onActivityResult", "NEW_INFORMATION_REQUEST RESULT_CANCELED");
                 //Write your code if there's no result
             }
         }
+
+
+        //update view
+        checkAllInformation();
 
     }
 
@@ -230,12 +258,68 @@ public class newTown extends AppCompatActivity {
         }
     }
 
-    void setChecked(View view) {
+
+     void checkAllInformation(){
+        int counter = 0;
+
+         Log.i("all", "title = "+title);
+         Log.i("all", "address = "+address);
+         Log.i("all", "category = "+category);
+         Log.i("all", "description = "+description);
+         Log.i("all", "information = "+information);
+
+
+
+        if(title!=null&&!title.isEmpty()) {
+            Log.i("checkAllInformation", "title!=null");
+            counter++;
+            setChecked(listview.getChildAt(0),title);
+        }
+
+         if(address!=null&&!address.isEmpty()) {
+            Log.i("checkAllInformation", "address!=null");
+            counter++;
+            setChecked(listview.getChildAt(1),address);
+        }
+
+         if(category!=null&&!category.isEmpty()) {
+            Log.i("checkAllInformation", "category!=null");
+            counter++;
+            setChecked(listview.getChildAt(2),category);
+        }
+
+         if(description!=null&&!description.isEmpty()) {
+            Log.i("checkAllInformation", "description!=null");
+            counter++;
+            setChecked(listview.getChildAt(3),description);
+        }
+
+         if(information!=null&&!information.isEmpty()) {
+            Log.i("checkAllInformation", "information!=null");
+            counter++;
+            setChecked(listview.getChildAt(4),information);
+        }
+
+        //update step left text view
+         TextView textView_step_left = (TextView) findViewById(R.id.textView_step_left);
+         textView_step_left.setText((5-counter)+" step left");
+
+         //update progress bar
+         ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
+         pb.setProgress(       (int)(100.0*(counter)/5.0 )   );
+
+         //return counter;
+    }
+
+    void setChecked(View view,String in) {
         ImageView c = (ImageView) view.findViewById(R.id.imageView_check);
         c.setImageResource(R.drawable.ic_check_box_black_24dp);
 
         TextView title = (TextView) view.findViewById(R.id.title1);
         title.setTextColor(Color.RED);
+
+        TextView description = (TextView) view.findViewById(R.id.description);
+        description.setText(in);
     }
 
     void setUnchecked(View view) {

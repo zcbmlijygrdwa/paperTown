@@ -17,7 +17,7 @@ public class NewDescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_description);
 
         //add button
-        Button button = (Button) findViewById(R.id.button_new_description);
+        Button button = (Button) findViewById(R.id.button_new_description_done);
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +24,7 @@ public class NewTitleActivity extends AppCompatActivity {
 
         final EditText ed = (EditText) findViewById(R.id.editText_newtitle);
 
-        Button button = (Button) findViewById(R.id.button_newtitle);
+        Button button = (Button) findViewById(R.id.button_newtitle_done);
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -42,6 +43,10 @@ public class NewTitleActivity extends AppCompatActivity {
 
             }
         });
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     }
     @Override

@@ -63,7 +63,7 @@ public class NewAddressActivity extends AppCompatActivity implements  OnMapReady
 
 
         //add button
-        Button button = (Button) findViewById(R.id.button_new_address);
+        Button button = (Button) findViewById(R.id.button_new_address_done);
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {

@@ -14,10 +14,9 @@ public class NewInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_information);
-
-
+        
         //add button
-        Button button = (Button) findViewById(R.id.button_new_information);
+        Button button = (Button) findViewById(R.id.button_new_information_done);
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -25,13 +24,10 @@ public class NewInformationActivity extends AppCompatActivity {
                 Intent returnIntent = new Intent();
                 EditText ev1 = (EditText) findViewById(R.id.editText_new_firstName);
                 EditText ev2 = (EditText) findViewById(R.id.editText_new_lastName);
-
-
                 returnIntent.putExtra("result", ev1.getText().toString()+","+ev2.getText().toString());
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
-
         });
 
     }
