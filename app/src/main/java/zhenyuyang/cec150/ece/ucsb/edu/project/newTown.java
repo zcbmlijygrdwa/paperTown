@@ -126,6 +126,14 @@ public class newTown extends AppCompatActivity {
                     //finish();// kill current activity
                 }
 
+                if (position == 4) {
+                    Intent intent = new Intent(getApplicationContext(), NewInformationActivity.class);
+                    //intent.putExtra(EXTRA_MESSAGE, "asdf");
+                    startActivityForResult(intent, NEW_INFORMATION_REQUEST);
+                    overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                    //finish();// kill current activity
+                }
+
 
 
             }
@@ -190,6 +198,18 @@ public class newTown extends AppCompatActivity {
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("onActivityResult", "NEW_DESCRIPTION_REQUEST RESULT_CANCELED");
+                //Write your code if there's no result
+            }
+        }
+        if (requestCode == NEW_INFORMATION_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                String result = data.getStringExtra("result");
+                Log.i("onActivityResult", "result = " + result);
+                title = result;
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Log.i("onActivityResult", "NEW_INFORMATION_REQUEST RESULT_CANCELED");
                 //Write your code if there's no result
             }
         }
