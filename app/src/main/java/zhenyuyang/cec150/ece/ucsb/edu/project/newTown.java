@@ -13,11 +13,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,8 @@ public class newTown extends AppCompatActivity {
     String category = "";
     String description = "";
     String information = "";
+
+    int itemLeft = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,66 +178,29 @@ public class newTown extends AppCompatActivity {
         });
 
 
-//        listview.setAdapter(adapter);
-/*
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+        //step left button event
+        Button button_step_left = (Button) findViewById(R.id.button_step_left);
+        button_step_left.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-
-                Log.i("onClick", "click");
-                Log.i("onClick", "position = " + position);
-
-
-                if (position == 0) {
-                    Intent intent = new Intent(getApplicationContext(), NewTitleActivity.class);
-                    //intent.putExtra(EXTRA_MESSAGE, "asdf");
-                    startActivityForResult(intent, NEW_TITLE_REQUEST);
-                    overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
-                    //finish();// kill current activity
+            public void onClick(View v) {
+                Log.i("onClick", "button_step_left click");
+                if(itemLeft>0){
+                    Toast.makeText(getApplicationContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Log.i("onClick", "Submit!");
                 }
 
-                if (position == 1) {
-                    Intent intent = new Intent(getApplicationContext(), NewAddressActivity.class);
-                    //intent.putExtra(EXTRA_MESSAGE, "asdf");
-                    startActivityForResult(intent, NEW_ADDRESS_REQUEST);
-                    overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
-                    //finish();// kill current activity
-                }
-
-                if (position == 2) {
-                    Intent intent = new Intent(getApplicationContext(), NewCategoryActivity.class);
-                    //intent.putExtra(EXTRA_MESSAGE, "asdf");
-                    startActivityForResult(intent, NEW_CATEGORY_REQUEST);
-                    overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
-                    //finish();// kill current activity
-                }
-
-                if (position == 3) {
-                    Intent intent = new Intent(getApplicationContext(), NewDescriptionActivity.class);
-                    //intent.putExtra(EXTRA_MESSAGE, "asdf");
-                    startActivityForResult(intent, NEW_DESCRIPTION_REQUEST);
-                    overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
-                    //finish();// kill current activity
-                }
-
-                if (position == 4) {
-                    Intent intent = new Intent(getApplicationContext(), NewInformationActivity.class);
-                    //intent.putExtra(EXTRA_MESSAGE, "asdf");
-                    startActivityForResult(intent, NEW_INFORMATION_REQUEST);
-                    overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
-                    //finish();// kill current activity
-                }
-
-
+//                Intent intent = new Intent(getApplicationContext(), NewTitleActivity.class);
+//                //intent.putExtra(EXTRA_MESSAGE, "asdf");
+//                startActivityForResult(intent, NEW_TITLE_REQUEST);
+//                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+//                //finish();// kill current activity
 
             }
-
         });
-        */
 
-        //test
 
     }
 
@@ -390,12 +357,16 @@ public class newTown extends AppCompatActivity {
         }
 
         //update step left text view
-         TextView textView_step_left = (TextView) findViewById(R.id.textView_step_left);
-         textView_step_left.setText((5-counter)+" step left");
+         Button button_step_left = (Button) findViewById(R.id.button_step_left);
+         button_step_left.setText((5-counter)+" step left");
+         itemLeft = 5-counter;
 
          //update progress bar
          ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
          pb.setProgress(       (int)(100.0*(counter)/5.0 )   );
+
+
+         //if all items finish, enable submission
 
          //return counter;
     }

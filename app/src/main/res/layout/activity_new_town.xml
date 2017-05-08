@@ -74,7 +74,6 @@
                         android:id="@+id/description_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="Give a name to the item"
                         android:textSize="10sp"></TextView>
 
@@ -118,7 +117,6 @@
                         android:id="@+id/description_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="Where did you find the item"
                         android:textSize="10sp"></TextView>
 
@@ -162,7 +160,6 @@
                         android:id="@+id/description_cate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="What is the type of the item"
                         android:textSize="10sp"></TextView>
                 </LinearLayout>
@@ -205,7 +202,6 @@
                         android:id="@+id/description_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="Be precise, concise and professional"
                         android:textSize="10sp"></TextView>
 
@@ -249,7 +245,6 @@
                         android:id="@+id/description_information"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="Required to keep track of the item"
                         android:textSize="10sp"></TextView>
                 </LinearLayout>
@@ -272,8 +267,8 @@
         </LinearLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/textView_step_left"
+    <Button
+        android:id="@+id/button_step_left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
