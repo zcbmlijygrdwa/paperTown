@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -356,21 +357,49 @@ public class newTown extends AppCompatActivity {
                      information);
         }
 
+        //update itemLeft
+         itemLeft = 5-counter;
+
         //update step left text view
          Button button_step_left = (Button) findViewById(R.id.button_step_left);
-         button_step_left.setText((5-counter)+" step left");
-         itemLeft = 5-counter;
+         if(itemLeft==1){
+             button_step_left.setText(itemLeft+" step to finish");
+         }
+         else {
+             button_step_left.setText(itemLeft+" steps to finish");
+         }
+
+
 
          //update progress bar
          ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
          pb.setProgress(       (int)(100.0*(counter)/5.0 )   );
-
-
          //if all items finish, enable submission
+         if(itemLeft==0){
+             Toast.makeText(getApplicationContext(), "All information ready!", Toast.LENGTH_SHORT).show();
+             enableSubmission();
+         }
 
          //return counter;
     }
 
+
+    void enableSubmission(){
+
+        //change colors
+
+        //change color of submission button
+        Button button_step_left = (Button) findViewById(R.id.button_step_left);
+        button_step_left.setBackgroundColor(Color.rgb(29,191,151));
+        button_step_left.setText("SUBMIT !");
+
+
+        //change the color of the progress bar
+        ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
+        pb.setProgress(0);  //only show background
+        pb.setBackgroundColor(Color.rgb(29,191,151));
+
+    }
 
     void setChecked(TextView t1, TextView t2, ImageView i1, String desctiption_in) {
         //ImageView c = (ImageView) view.findViewById(R.id.imageView_check);
