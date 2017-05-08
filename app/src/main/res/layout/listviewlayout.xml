@@ -12,14 +12,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-
         <TextView
             android:id="@+id/title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title"
-            android:textSize="40px" >
+            android:textSize="20sp" >
         </TextView>
 
         <TextView
@@ -27,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
-            android:textSize="20px" >
+            android:textSize="10sp" >
         </TextView>
 
 

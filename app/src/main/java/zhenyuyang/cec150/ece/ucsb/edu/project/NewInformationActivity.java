@@ -14,7 +14,7 @@ public class NewInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_information);
-        
+
         //add button
         Button button = (Button) findViewById(R.id.button_new_information_done);
         button.setOnClickListener(new View.OnClickListener() {

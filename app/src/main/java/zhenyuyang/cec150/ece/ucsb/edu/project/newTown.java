@@ -74,24 +74,24 @@ public class newTown extends AppCompatActivity {
             }
         });
 
-        listview = (ListView) findViewById(R.id.listView);
+        //listview = (ListView) findViewById(R.id.listView);
         String[] values = new String[]{"Add Title",
                 "Set Address",
                 "Select Category",
                 "Add Description",
-                "Yout Information"};
+                "Your Information"};
 
         String[] decriptions = new String[]{"Give a name to the item",
                 "Where did you find the item",
                 "What is the type of the item",
-                "Be precise, consise and professional",
+                "Be precise, concise and professional",
                 "Required to keep track of the item"};
 
-        boolean[] checked = new boolean[]{false,
-                false,
-                false,
-                false,
-                false};
+//        boolean[] checked = new boolean[]{false,
+//                false,
+//                false,
+//                false,
+//                false};
 
 
         final ArrayList<String> list = new ArrayList<String>();
@@ -100,14 +100,82 @@ public class newTown extends AppCompatActivity {
         }
 
 
-        final MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, values);
+//        final MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, values);
+//
+//        //send data to the adaptor
+//        adapter.setCheckBoxValue(checked);
+//        adapter.setDecriptionsValue(decriptions);
 
-        //send data to the adaptor
-        adapter.setCheckBoxValue(checked);
-        adapter.setDecriptionsValue(decriptions);
 
-        listview.setAdapter(adapter);
+        TextView title_title = (TextView) findViewById(R.id.title_title);
+        title_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("onClick", "selectImage click");
+                Intent intent = new Intent(getApplicationContext(), NewTitleActivity.class);
+                //intent.putExtra(EXTRA_MESSAGE, "asdf");
+                startActivityForResult(intent, NEW_TITLE_REQUEST);
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                //finish();// kill current activity
 
+            }
+        });
+
+        TextView title_address = (TextView) findViewById(R.id.title_address);
+        title_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), NewAddressActivity.class);
+                //intent.putExtra(EXTRA_MESSAGE, "asdf");
+                startActivityForResult(intent, NEW_ADDRESS_REQUEST);
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                //finish();// kill current activity
+
+            }
+        });
+
+        TextView title_cate = (TextView) findViewById(R.id.title_cate);
+        title_cate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), NewCategoryActivity.class);
+                //intent.putExtra(EXTRA_MESSAGE, "asdf");
+                startActivityForResult(intent, NEW_CATEGORY_REQUEST);
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                //finish();// kill current activity
+
+            }
+        });
+
+        TextView title_description = (TextView) findViewById(R.id.title_description);
+        title_description.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), NewDescriptionActivity.class);
+                //intent.putExtra(EXTRA_MESSAGE, "asdf");
+                startActivityForResult(intent, NEW_DESCRIPTION_REQUEST);
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                //finish();// kill current activity
+
+            }
+        });
+
+        TextView title_information = (TextView) findViewById(R.id.title_information);
+        title_information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), NewInformationActivity.class);
+                //intent.putExtra(EXTRA_MESSAGE, "asdf");
+                startActivityForResult(intent, NEW_INFORMATION_REQUEST);
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                //finish();// kill current activity
+
+            }
+        });
+
+
+//        listview.setAdapter(adapter);
+/*
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -163,6 +231,7 @@ public class newTown extends AppCompatActivity {
             }
 
         });
+        */
 
         //test
 
@@ -240,7 +309,7 @@ public class newTown extends AppCompatActivity {
 
 
         //update view
-        checkAllInformation();
+       checkAllInformation();
 
     }
 
@@ -273,31 +342,51 @@ public class newTown extends AppCompatActivity {
         if(title!=null&&!title.isEmpty()) {
             Log.i("checkAllInformation", "title!=null");
             counter++;
-            setChecked(listview.getChildAt(0),title);
+            //setChecked(listview.getChildAt(0),title);
+            setChecked((TextView) findViewById(R.id.title_title),
+                    (TextView) findViewById(R.id.description_title),
+                    (ImageView) findViewById(R.id.checkbox1),
+                    title);
         }
 
          if(address!=null&&!address.isEmpty()) {
             Log.i("checkAllInformation", "address!=null");
             counter++;
-            setChecked(listview.getChildAt(1),address);
+            //setChecked(listview.getChildAt(1),address);
+             setChecked((TextView) findViewById(R.id.title_address),
+                     (TextView) findViewById(R.id.description_address),
+                     (ImageView) findViewById(R.id.checkbox2),
+                     address);
         }
 
          if(category!=null&&!category.isEmpty()) {
             Log.i("checkAllInformation", "category!=null");
             counter++;
-            setChecked(listview.getChildAt(2),category);
+            //setChecked(listview.getChildAt(2),category);
+             setChecked((TextView) findViewById(R.id.title_cate),
+                     (TextView) findViewById(R.id.description_cate),
+                     (ImageView) findViewById(R.id.checkbox3),
+                     category);
         }
 
          if(description!=null&&!description.isEmpty()) {
             Log.i("checkAllInformation", "description!=null");
             counter++;
-            setChecked(listview.getChildAt(3),description);
+            //setChecked(listview.getChildAt(3),description);
+             setChecked((TextView) findViewById(R.id.title_description),
+                     (TextView) findViewById(R.id.description_description),
+                     (ImageView) findViewById(R.id.checkbox4),
+                     description);
         }
 
          if(information!=null&&!information.isEmpty()) {
             Log.i("checkAllInformation", "information!=null");
             counter++;
-            setChecked(listview.getChildAt(4),information);
+            //setChecked(listview.getChildAt(4),information);
+             setChecked((TextView) findViewById(R.id.title_information),
+                     (TextView) findViewById(R.id.description_information),
+                     (ImageView) findViewById(R.id.checkbox5),
+                     information);
         }
 
         //update step left text view
@@ -310,6 +399,20 @@ public class newTown extends AppCompatActivity {
 
          //return counter;
     }
+
+
+    void setChecked(TextView t1, TextView t2, ImageView i1, String desctiption_in) {
+        //ImageView c = (ImageView) view.findViewById(R.id.imageView_check);
+        i1.setImageResource(R.drawable.ic_check_box_black_24dp);
+
+        //TextView title = (TextView) view.findViewById(R.id.title1);
+        t1.setTextColor(Color.RED);
+
+        //TextView description = (TextView) view.findViewById(R.id.description);
+        t2.setText(desctiption_in);
+    }
+
+
 
     void setChecked(View view,String in) {
         ImageView c = (ImageView) view.findViewById(R.id.imageView_check);

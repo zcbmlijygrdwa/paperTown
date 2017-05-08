@@ -39,24 +39,31 @@
         </FrameLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingBottom="20sp"
-        android:paddingTop="50sp"
-        android:text="Title"
-        android:textStyle="bold"/>
+>
 
-    <EditText
-        android:id="@+id/editText_newtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Give a name to the item   " />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="20sp"
+                android:paddingTop="50sp"
+                android:text="Title"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/editText_newtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Give a name to the item   " />
+
+
+
+
+
 
 
 </LinearLayout>
