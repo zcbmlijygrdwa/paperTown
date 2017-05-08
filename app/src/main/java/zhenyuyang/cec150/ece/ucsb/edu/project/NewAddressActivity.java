@@ -1,7 +1,9 @@
 package zhenyuyang.cec150.ece.ucsb.edu.project;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -13,6 +15,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -57,7 +61,30 @@ public class NewAddressActivity extends AppCompatActivity implements  OnMapReady
         }
 
 
+        //add button
+        Button button = (Button) findViewById(R.id.button_new_address);
+        button.setOnClickListener(new View.OnClickListener() {
 
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent returnIntent = new Intent();
+
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+
+                returnIntent.putExtra("result", latitude + ", " + longitude);
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+
+
+                //if don't want to return data:
+//                Intent returnIntent = new Intent();
+//                setResult(Activity.RESULT_CANCELED, returnIntent);
+//                finish();
+
+            }
+
+        });
     }
 
     @Override
@@ -96,14 +123,20 @@ public class NewAddressActivity extends AppCompatActivity implements  OnMapReady
                 {
 
                     Log.i("manu", "onMyLocationButtonClick!!");
-                    location = map.getMyLocation();
-                    double latitude = location.getLatitude();
-                    double longitude = location.getLongitude();
-                    Log.i("manu", "latitude = "+latitude);
-                    Log.i("manu", "longitude = "+longitude);
+                    try {
+                        location = map.getMyLocation();
+                        double latitude = location.getLatitude();
+                        double longitude = location.getLongitude();
+                        Log.i("manu", "latitude = " + latitude);
+                        Log.i("manu", "longitude = " + longitude);
 
 
-
+                        EditText ev = ((EditText) findViewById(R.id.editText_new_address));
+                        ev.setText(latitude + ", " + longitude);
+                    }
+                    catch(Exception e){
+                        Log.e("manu", "e = "+e);
+                    }
 
 
 

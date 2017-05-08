@@ -26,7 +26,7 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class newTown extends AppCompatActivity {
     final int NEW_TITLE_REQUEST = 0;
-    final int NEW_ADDRESS_REQUEST = 0;
+    final int NEW_ADDRESS_REQUEST = 2;
     final int NEW_CATEGORY_REQUEST = 0;
     final int NEW_INFORMATION_REQUEST = 0;
 
@@ -104,7 +104,7 @@ public class newTown extends AppCompatActivity {
                 if (position == 1) {
                     Intent intent = new Intent(getApplicationContext(), NewAddressActivity.class);
                     //intent.putExtra(EXTRA_MESSAGE, "asdf");
-                    startActivityForResult(intent, NEW_TITLE_REQUEST);
+                    startActivityForResult(intent, NEW_ADDRESS_REQUEST);
                     overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
                     //finish();// kill current activity
                 }
@@ -122,27 +122,31 @@ public class newTown extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        String result = data.getStringExtra("result");
+
 
         if (requestCode == NEW_TITLE_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
+                String result = data.getStringExtra("result");
                 Log.i("onActivityResult", "result = " + result);
                 title = result;
             }
             if (resultCode == Activity.RESULT_CANCELED) {
+                Log.i("onActivityResult", "NEW_TITLE_REQUEST RESULT_CANCELED");
                 //Write your code if there's no result
             }
         }
 
 
-        if (requestCode == NEW_TITLE_REQUEST) {
+        if (requestCode == NEW_ADDRESS_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
+                String result = data.getStringExtra("result");
                 Log.i("onActivityResult", "result = " + result);
                 title = result;
             }
             if (resultCode == Activity.RESULT_CANCELED) {
+                Log.i("onActivityResult", "NEW_ADDRESS_REQUEST RESULT_CANCELED");
                 //Write your code if there's no result
             }
         }
