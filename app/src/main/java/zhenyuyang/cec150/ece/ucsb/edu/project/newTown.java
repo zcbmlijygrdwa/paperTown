@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,11 +32,13 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class newTown extends AppCompatActivity {
     static ListView listview;
 
+
     final int NEW_TITLE_REQUEST = 0;
     final int NEW_ADDRESS_REQUEST = 1;
     final int NEW_CATEGORY_REQUEST = 2;
     final int NEW_DESCRIPTION_REQUEST = 3;
     final int NEW_INFORMATION_REQUEST =4;
+    final int NEW_PHOTO_REQUEST = 5;
 
     String title = "";
     String address = "";
@@ -74,7 +77,7 @@ public class newTown extends AppCompatActivity {
 //                        Toast.LENGTH_LONG).show();
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
+                startActivityForResult(pickPhoto , NEW_PHOTO_REQUEST);//one can be replaced with any action code
 
             }
         });
@@ -275,6 +278,20 @@ public class newTown extends AppCompatActivity {
             }
         }
 
+        if (requestCode == NEW_PHOTO_REQUEST) {
+            // Make sure the request was successful
+            Log.i("onActivityResult", "NEW_PHOTO_REQUEST");
+            if (resultCode == RESULT_OK) {
+                Uri selectedImageURI = data.getData();
+                Log.i("onActivityResult", "result = " + selectedImageURI.toString());
+                ImageView selectImage = (ImageView) findViewById(R.id.imageView);
+                selectImage.setImageURI(selectedImageURI);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Log.i("onActivityResult", "NEW_PHOTO_REQUEST RESULT_CANCELED");
+                //Write your code if there's no result
+            }
+        }
 
         //update view
        checkAllInformation();

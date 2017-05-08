@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap map) {
-
                     //enable myLocationButton
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {

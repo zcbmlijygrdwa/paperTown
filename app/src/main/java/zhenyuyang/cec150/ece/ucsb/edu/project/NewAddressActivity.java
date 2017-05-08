@@ -93,10 +93,9 @@ public class NewAddressActivity extends AppCompatActivity implements  OnMapReady
         });
     }
 
+
     @Override
     public void onMapReady(final GoogleMap map) {
-
-
 
 
             //checkSelfPermission
@@ -104,7 +103,6 @@ public class NewAddressActivity extends AppCompatActivity implements  OnMapReady
                     Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 map.setMyLocationEnabled(true);
                 //map.getUiSettings().setMyLocationButtonEnabled(true);
-
 
                 locationManager = (LocationManager)
                         getSystemService(Context.LOCATION_SERVICE);
