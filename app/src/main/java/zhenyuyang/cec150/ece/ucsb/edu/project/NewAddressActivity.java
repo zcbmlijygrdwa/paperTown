@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -69,12 +70,17 @@ public class NewAddressActivity extends AppCompatActivity implements  OnMapReady
                 // TODO Auto-generated method stub
                 Intent returnIntent = new Intent();
 
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
+                if(location!=null) {
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
 
-                returnIntent.putExtra("result", latitude + ", " + longitude);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
+                    returnIntent.putExtra("result", latitude + ", " + longitude);
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Location unset!", Toast.LENGTH_SHORT).show();
+                }
 
 
                 //if don't want to return data:

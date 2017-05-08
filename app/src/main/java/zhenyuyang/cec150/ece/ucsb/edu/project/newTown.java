@@ -26,9 +26,9 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class newTown extends AppCompatActivity {
     final int NEW_TITLE_REQUEST = 0;
-    final int NEW_ADDRESS_REQUEST = 2;
-    final int NEW_CATEGORY_REQUEST = 0;
-    final int NEW_INFORMATION_REQUEST = 0;
+    final int NEW_ADDRESS_REQUEST = 1;
+    final int NEW_CATEGORY_REQUEST = 2;
+    final int NEW_INFORMATION_REQUEST =3;
 
     String title = "";
 
@@ -109,6 +109,14 @@ public class newTown extends AppCompatActivity {
                     //finish();// kill current activity
                 }
 
+                if (position == 2) {
+                    Intent intent = new Intent(getApplicationContext(), NewCategoryActivity.class);
+                    //intent.putExtra(EXTRA_MESSAGE, "asdf");
+                    startActivityForResult(intent, NEW_CATEGORY_REQUEST);
+                    overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                    //finish();// kill current activity
+                }
+
 
 
             }
@@ -147,6 +155,19 @@ public class newTown extends AppCompatActivity {
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("onActivityResult", "NEW_ADDRESS_REQUEST RESULT_CANCELED");
+                //Write your code if there's no result
+            }
+        }
+
+        if (requestCode == NEW_CATEGORY_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                String result = data.getStringExtra("result");
+                Log.i("onActivityResult", "result = " + result);
+                title = result;
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Log.i("onActivityResult", "NEW_CATEGORY_REQUEST RESULT_CANCELED");
                 //Write your code if there's no result
             }
         }
