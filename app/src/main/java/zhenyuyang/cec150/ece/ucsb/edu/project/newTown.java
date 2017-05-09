@@ -74,16 +74,12 @@ public class newTown extends AppCompatActivity {
                 Log.i("onClick", "selectImage click");
 
 
-                Intent intent = new Intent(getApplicationContext(), SelectImageActivity.class);
-                //intent.putExtra(EXTRA_MESSAGE, "asdf");
-                startActivityForResult(intent, NEW_PHOTO_REQUEST);
-                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
-                //finish();// kill current activity
 
-//                //stat camera rool
-//                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(pickPhoto , NEW_PHOTO_REQUEST);//one can be replaced with any action code
+
+                //stat camera rool
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , NEW_PHOTO_REQUEST);//one can be replaced with any action code
 
             }
         });
@@ -290,8 +286,18 @@ public class newTown extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Uri selectedImageURI = data.getData();
                 Log.i("onActivityResult", "result = " + selectedImageURI.toString());
-                ImageView selectImage = (ImageView) findViewById(R.id.imageView);
-                selectImage.setImageURI(selectedImageURI);
+//                ImageView selectImage = (ImageView) findViewById(R.id.imageView);
+//                selectImage.setImageURI(selectedImageURI);
+
+                Intent intent = new Intent(getApplicationContext(), SelectImageActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, selectedImageURI.toString());
+                startActivityForResult(intent, NEW_PHOTO_REQUEST);
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                //finish();// kill current activity
+
+
+
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("onActivityResult", "NEW_PHOTO_REQUEST RESULT_CANCELED");

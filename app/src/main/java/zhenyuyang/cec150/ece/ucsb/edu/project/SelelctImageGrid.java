@@ -1,6 +1,7 @@
 package zhenyuyang.cec150.ece.ucsb.edu.project;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,8 @@ import android.widget.TextView;
 public class SelelctImageGrid extends BaseAdapter {
     private Context mContext;
     private final String[] web;
-    private final int[] Imageid;
+    private  int[] Imageid;
+    private  Uri[] ImageUris;
 
 
 
@@ -27,10 +29,16 @@ public class SelelctImageGrid extends BaseAdapter {
         this.web = web;
     }
 
+    public SelelctImageGrid(Context c,String[] web,Uri[] ImageUris ) {
+        mContext = c;
+        this.ImageUris = ImageUris;
+        this.web = web;
+    }
+
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return web.length;
+        return ImageUris.length;
     }
 
     @Override
@@ -59,7 +67,8 @@ public class SelelctImageGrid extends BaseAdapter {
             //TextView textView = (TextView) grid.findViewById(R.id.grid_text);
             ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
             //textView.setText(web[position]);
-            imageView.setImageResource(Imageid[position]);
+            //imageView.setImageResource(Imageid[position]);
+            imageView.setImageURI(ImageUris[position]);
         } else {
             grid = (View) convertView;
         }
