@@ -72,12 +72,18 @@ public class newTown extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("onClick", "selectImage click");
-//                Toast.makeText(YourActivityName.this,
-//                        "The favorite list would appear on clicking this icon",
-//                        Toast.LENGTH_LONG).show();
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto , NEW_PHOTO_REQUEST);//one can be replaced with any action code
+
+
+                Intent intent = new Intent(getApplicationContext(), SelectImageActivity.class);
+                //intent.putExtra(EXTRA_MESSAGE, "asdf");
+                startActivityForResult(intent, NEW_PHOTO_REQUEST);
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                //finish();// kill current activity
+
+//                //stat camera rool
+//                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(pickPhoto , NEW_PHOTO_REQUEST);//one can be replaced with any action code
 
             }
         });

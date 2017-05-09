@@ -43,12 +43,40 @@
             android:orientation="vertical">
 
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/brick" />
+
+
+                <TextView
+                    android:id="@+id/title_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:text="Add Photos"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="20sp"></TextView>
+
+                <ImageView
+                    android:id="@+id/checkbox_0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginBottom="10dp"
+                    app:srcCompat="@drawable/ic_check_box_outline_blank_white_24dp" />
+
+
+            </FrameLayout>
 
 
             <LinearLayout
@@ -272,7 +300,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:background="@android:color/holo_red_light"
+        android:background="@android:color/darker_gray"
         android:gravity="center"
         android:text="5 step left" />
 

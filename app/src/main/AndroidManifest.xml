@@ -36,7 +36,8 @@
         <activity android:name=".NewAddressActivity" />
         <activity android:name=".NewCategoryActivity" />
         <activity android:name=".NewDescriptionActivity" />
-        <activity android:name=".NewInformationActivity"></activity>
+        <activity android:name=".NewInformationActivity" />
+        <activity android:name=".SelectImageActivity"></activity>
     </application>
 
 </manifest>
