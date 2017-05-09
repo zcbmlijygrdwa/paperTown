@@ -45,8 +45,9 @@ public class newTown extends AppCompatActivity {
     String category = "";
     String description = "";
     String information = "";
+    Uri imageUri = null;
 
-    int itemLeft = 5;
+    int itemLeft = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -306,8 +307,9 @@ public class newTown extends AppCompatActivity {
                 ImageView selectImage = (ImageView) findViewById(R.id.imageView);
                 selectImage.setImageURI(Uri.parse(result));
 
-
-
+                imageUri = Uri.parse(result);
+                ImageView c = (ImageView) findViewById(R.id.checkbox_0);
+                c.setImageResource(R.drawable.ic_check_box_white_24dp);
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -397,8 +399,16 @@ public class newTown extends AppCompatActivity {
                      information);
         }
 
+         if(imageUri!=null) {
+             Log.i("checkAllInformation", "information!=null");
+             counter++;
+         }
+
+
+
+
         //update itemLeft
-         itemLeft = 5-counter;
+         itemLeft = 6-counter;
 
         //update step left text view
          Button button_step_left = (Button) findViewById(R.id.button_step_left);
@@ -413,7 +423,7 @@ public class newTown extends AppCompatActivity {
 
          //update progress bar
          ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
-         pb.setProgress(       (int)(100.0*(counter)/5.0 )   );
+         pb.setProgress(       (int)(100.0*(counter)/6.0 )   );
          //if all items finish, enable submission
          if(itemLeft==0){
              Toast.makeText(getApplicationContext(), "All information ready!", Toast.LENGTH_SHORT).show();

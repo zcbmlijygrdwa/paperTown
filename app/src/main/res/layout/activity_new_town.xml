@@ -135,7 +135,7 @@
 
                     <TextView
                         android:id="@+id/title_address"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="Set Address"
@@ -143,7 +143,7 @@
 
                     <TextView
                         android:id="@+id/description_address"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Where did you find the item"
                         android:textSize="10sp"></TextView>
@@ -178,7 +178,7 @@
 
                     <TextView
                         android:id="@+id/title_cate"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="Select Category"
@@ -186,7 +186,7 @@
 
                     <TextView
                         android:id="@+id/description_cate"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="What is the type of the item"
                         android:textSize="10sp"></TextView>
@@ -220,7 +220,7 @@
 
                     <TextView
                         android:id="@+id/title_description"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="Add Description"
@@ -228,7 +228,7 @@
 
                     <TextView
                         android:id="@+id/description_description"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Be precise, concise and professional"
                         android:textSize="10sp"></TextView>
@@ -263,7 +263,7 @@
 
                     <TextView
                         android:id="@+id/title_information"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="Your Information"
@@ -271,7 +271,7 @@
 
                     <TextView
                         android:id="@+id/description_information"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Required to keep track of the item"
                         android:textSize="10sp"></TextView>
@@ -302,6 +302,6 @@
         android:layout_weight="0"
         android:background="@android:color/darker_gray"
         android:gravity="center"
-        android:text="5 step left" />
+        android:text="6 step left" />
 
 </LinearLayout>
