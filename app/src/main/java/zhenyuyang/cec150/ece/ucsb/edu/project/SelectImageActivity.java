@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -78,6 +79,29 @@ public class SelectImageActivity extends AppCompatActivity {
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto , NEW_PHOTO_REQUEST);//one can be replaced with any action code
             }
+        });
+
+
+
+        //add button
+        Button button = (Button) findViewById(R.id.button_new_image_done);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result", imageUris[0].toString());
+                setResult(Activity.RESULT_FIRST_USER, returnIntent);
+                finish();
+
+
+                //if don't want to return data:
+//                Intent returnIntent = new Intent();
+//                setResult(Activity.RESULT_CANCELED, returnIntent);
+//                finish();
+
+            }
+
         });
 
     }

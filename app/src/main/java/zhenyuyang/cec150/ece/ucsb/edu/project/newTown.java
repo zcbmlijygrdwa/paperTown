@@ -299,6 +299,17 @@ public class newTown extends AppCompatActivity {
 
 
             }
+
+            if (resultCode == RESULT_FIRST_USER) {  //final confirmed return
+                String result = data.getStringExtra("result");
+                Log.i("onActivityResult", "result = " + result);
+                ImageView selectImage = (ImageView) findViewById(R.id.imageView);
+                selectImage.setImageURI(Uri.parse(result));
+
+
+
+
+            }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("onActivityResult", "NEW_PHOTO_REQUEST RESULT_CANCELED");
                 //Write your code if there's no result
