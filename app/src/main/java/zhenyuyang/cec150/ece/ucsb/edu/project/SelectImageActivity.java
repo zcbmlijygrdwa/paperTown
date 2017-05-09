@@ -53,7 +53,7 @@ public class SelectImageActivity extends AppCompatActivity {
 //                Uri.parse(s)};
 
         imageUris = addUri(imageUris,Uri.parse(s));
-
+        //Uri[] imageUrisWithAdd = addUri(imageUris,Uri.parse(s));
         SelelctImageGrid adapter = new SelelctImageGrid(SelectImageActivity.this, web, imageUris);
         grid=(GridView)findViewById(R.id.grid);
         grid.setAdapter(adapter);
@@ -63,6 +63,18 @@ public class SelectImageActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Log.i("addOnItemTouchListener", "onItemClick position =" + position);
+
+
+                //respond to the add more image event
+                if(position == imageUris.length){
+
+                    Log.i("addOnItemTouchListener", "last one!");
+
+                    //stat camera rool
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(pickPhoto , NEW_PHOTO_REQUEST);//one can be replaced with any action code
+                }
                 //Toast.makeText(MainActivity.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
 
             }
@@ -70,16 +82,7 @@ public class SelectImageActivity extends AppCompatActivity {
 
 
 
-        Button button_add_more_image = (Button) findViewById(R.id.button_add_more_image);
-        button_add_more_image.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                //stat camera rool
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto , NEW_PHOTO_REQUEST);//one can be replaced with any action code
-            }
-        });
 
 
 

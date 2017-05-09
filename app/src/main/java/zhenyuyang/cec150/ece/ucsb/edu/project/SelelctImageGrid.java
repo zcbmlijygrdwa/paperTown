@@ -1,6 +1,7 @@
 package zhenyuyang.cec150.ece.ucsb.edu.project;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class SelelctImageGrid extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return ImageUris.length;
+        return ImageUris.length+1;
     }
 
     @Override
@@ -61,14 +62,25 @@ public class SelelctImageGrid extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-
-            grid = new View(mContext);
-            grid = inflater.inflate(R.layout.grid_single, null);
-            //TextView textView = (TextView) grid.findViewById(R.id.grid_text);
-            ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
-            //textView.setText(web[position]);
-            //imageView.setImageResource(Imageid[position]);
-            imageView.setImageURI(ImageUris[position]);
+            if(position!=ImageUris.length) {
+                grid = new View(mContext);
+                grid = inflater.inflate(R.layout.grid_single, null);
+                //TextView textView = (TextView) grid.findViewById(R.id.grid_text);
+                ImageView imageView = (ImageView) grid.findViewById(R.id.grid_image);
+                //textView.setText(web[position]);
+                //imageView.setImageResource(Imageid[position]);
+                imageView.setImageURI(ImageUris[position]);
+            }
+            else{
+                grid = new View(mContext);
+                grid = inflater.inflate(R.layout.grid_single, null);
+                //TextView textView = (TextView) grid.findViewById(R.id.grid_text);
+                ImageView imageView = (ImageView) grid.findViewById(R.id.grid_image);
+                //textView.setText(web[position]);
+                imageView.setBackgroundColor(Color.GRAY);
+                imageView.setImageResource(R.drawable.ic_add_white_48dp);
+                //imageView.setImageURI(ImageUris[position]);
+            }
         } else {
             grid = (View) convertView;
         }

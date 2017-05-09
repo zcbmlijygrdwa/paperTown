@@ -45,16 +45,10 @@
         android:layout_gravity="center_horizontal"
         android:text="Selected Photos" />
 
-    <Button
-        android:id="@+id/button_add_more_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add More Photo" />
-
     <GridView
         android:numColumns="auto_fit"
         android:layout_gravity="center"
-        android:columnWidth="100sp"
+        android:columnWidth="90sp"
         android:stretchMode="columnWidth"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

@@ -39,6 +39,7 @@ public class newTown extends AppCompatActivity {
     final int NEW_DESCRIPTION_REQUEST = 3;
     final int NEW_INFORMATION_REQUEST =4;
     final int NEW_PHOTO_REQUEST = 5;
+    final int PICK_IMAGE_MULTIPLE = 6;
 
     String title = "";
     String address = "";
@@ -81,6 +82,13 @@ public class newTown extends AppCompatActivity {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto , NEW_PHOTO_REQUEST);//one can be replaced with any action code
+
+//                //start camera roll for multiple images
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);
 
             }
         });
@@ -456,7 +464,7 @@ public class newTown extends AppCompatActivity {
         i1.setImageResource(R.drawable.ic_check_box_black_24dp);
 
         //TextView title = (TextView) view.findViewById(R.id.title1);
-        t1.setTextColor(Color.RED);
+        t1.setTextColor(Color.rgb(29,191,151));
 
         //TextView description = (TextView) view.findViewById(R.id.description);
         t2.setText(desctiption_in);
@@ -469,7 +477,7 @@ public class newTown extends AppCompatActivity {
         c.setImageResource(R.drawable.ic_check_box_black_24dp);
 
         TextView title = (TextView) view.findViewById(R.id.title1);
-        title.setTextColor(Color.RED);
+        title.setTextColor(Color.rgb(29,191,151));
 
         TextView description = (TextView) view.findViewById(R.id.description);
         description.setText(in);
