@@ -3,6 +3,8 @@ package zhenyuyang.cec150.ece.ucsb.edu.project;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -13,6 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -92,6 +99,14 @@ public class newTown extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
+
+
+
 
         //listview = (ListView) findViewById(R.id.listView);
         String[] values = new String[]{"Add Title",
@@ -219,6 +234,56 @@ public class newTown extends AppCompatActivity {
 
     }
 
+    private void animate(final ImageView imageView, final Uri images[], final int imageIndex, final boolean forever) {
+
+        //imageView <-- The View which displays the images
+        //images[] <-- Holds R references to the images to display
+        //imageIndex <-- index of the first image to show in images[]
+        //forever <-- If equals true then after the last image it starts all over again with the first image resulting in an infinite loop. You have been warned.
+
+        int fadeInDuration = 500; // Configure time values here
+        int timeBetween = 3000;
+        int fadeOutDuration = 1000;
+
+        imageView.setVisibility(View.INVISIBLE);    //Visible or invisible by default - this will apply when the animation ends
+       // imageView.setImageResource(images[imageIndex]);
+        imageView.setImageURI(images[imageIndex]); // use Uri as resource
+
+        Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+        fadeIn.setInterpolator(new DecelerateInterpolator()); // add this
+        fadeIn.setDuration(fadeInDuration);
+
+        Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+        fadeOut.setInterpolator(new AccelerateInterpolator()); // and this
+        fadeOut.setStartOffset(fadeInDuration + timeBetween);
+        fadeOut.setDuration(fadeOutDuration);
+
+        AnimationSet animation = new AnimationSet(false); // change to false
+        animation.addAnimation(fadeIn);
+        animation.addAnimation(fadeOut);
+        animation.setRepeatCount(1);
+        imageView.setAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            public void onAnimationEnd(Animation animation) {
+                if (images.length - 1 > imageIndex) {
+                    animate(imageView, images, imageIndex + 1,forever); //Calls itself until it gets to the end of the array
+                }
+                else {
+                    if (forever == true){
+                        animate(imageView, images, 0,forever);  //Calls itself to start the animation all over again in a loop if forever = true
+                    }
+                }
+            }
+            public void onAnimationRepeat(Animation animation) {
+                // TODO Auto-generated method stub
+            }
+            public void onAnimationStart(Animation animation) {
+                // TODO Auto-generated method stub
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
@@ -310,14 +375,23 @@ public class newTown extends AppCompatActivity {
             }
 
             if (resultCode == RESULT_FIRST_USER) {  //final confirmed return
-                String result = data.getStringExtra("result");
-                Log.i("onActivityResult", "result = " + result);
-                ImageView selectImage = (ImageView) findViewById(R.id.imageView);
-                selectImage.setImageURI(Uri.parse(result));
+                ArrayList<Uri> arrayList = data.getParcelableArrayListExtra("multipleImage");
+                Uri[] uriList = arrayList.toArray(new Uri[0]);  //put URiaa arrayList to array
+                //String result = data.getStringExtra("result");
+                //Log.i("onActivityResult", "result = " + result);
 
-                imageUri = Uri.parse(result);
+
+
+
+                //set Uri list as resource
+                ImageView selectImage = (ImageView) findViewById(R.id.imageView);
+                //selectImage.setImageURI(Uri.parse(result));
+                //imageUri = Uri.parse(result);
                 ImageView c = (ImageView) findViewById(R.id.checkbox_0);
                 c.setImageResource(R.drawable.ic_check_box_white_24dp);
+
+                int imagesToShow[] = { R.drawable.door, R.drawable.corner,R.drawable.light };
+                animate(selectImage, uriList, 0,true);  //start animation
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {

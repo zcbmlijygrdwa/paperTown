@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class SelectImageActivity extends AppCompatActivity {
@@ -93,9 +97,13 @@ public class SelectImageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("result", imageUris[0].toString());
+
+                ArrayList<Uri> uriList = new ArrayList<Uri>(Arrays.asList(imageUris)); //new ArrayList is only needed if you absolutely need an ArrayList
+                returnIntent.putParcelableArrayListExtra    ("multipleImage", uriList);
+                //returnIntent.putExtra("result", imageUris[0].toString());
                 setResult(Activity.RESULT_FIRST_USER, returnIntent);
                 finish();
+
 
 
                 //if don't want to return data:
