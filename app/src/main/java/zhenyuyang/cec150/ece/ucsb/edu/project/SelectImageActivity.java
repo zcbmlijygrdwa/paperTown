@@ -77,7 +77,7 @@ public class SelectImageActivity extends AppCompatActivity {
                     //stat camera rool
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , NEW_PHOTO_REQUEST);//one can be replaced with any action code
+                    startActivityForResult(pickPhoto.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) , NEW_PHOTO_REQUEST);//one can be replaced with any action code
                 }
                 //Toast.makeText(MainActivity.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
 
@@ -99,6 +99,7 @@ public class SelectImageActivity extends AppCompatActivity {
                 Intent returnIntent = new Intent();
 
                 ArrayList<Uri> uriList = new ArrayList<Uri>(Arrays.asList(imageUris)); //new ArrayList is only needed if you absolutely need an ArrayList
+                Log.i("mSwitcher", "imageUris[0] = "+imageUris[0].toString());
                 returnIntent.putParcelableArrayListExtra    ("multipleImage", uriList);
                 //returnIntent.putExtra("result", imageUris[0].toString());
                 setResult(Activity.RESULT_FIRST_USER, returnIntent);

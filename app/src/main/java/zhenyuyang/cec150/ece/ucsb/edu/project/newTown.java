@@ -3,6 +3,7 @@ package zhenyuyang.cec150.ece.ucsb.edu.project;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -19,16 +20,20 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,9 +41,10 @@ import java.util.List;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
-public class newTown extends AppCompatActivity {
+public class newTown extends AppCompatActivity implements
+        AdapterView.OnItemSelectedListener, ViewSwitcher.ViewFactory{
     static ListView listview;
-
+    private ImageSwitcher mSwitcher;
 
     final int NEW_TITLE_REQUEST = 0;
     final int NEW_ADDRESS_REQUEST = 1;
@@ -55,7 +61,15 @@ public class newTown extends AppCompatActivity {
     String information = "";
     Uri imageUri = null;
 
+    static int imageCount = 0;
+
     int itemLeft = 6;
+
+
+    private Integer[] mImageIds = {
+            R.drawable.door, R.drawable.light, R.drawable.corner,
+            R.drawable.mc, R.drawable.light, R.drawable.door,
+            R.drawable.light, R.drawable.corner};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +89,32 @@ public class newTown extends AppCompatActivity {
 
 
 
+
+
+        //setup switcher
+        mSwitcher = (ImageSwitcher) findViewById(R.id.switcher);
+        mSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                ImageView myView = new ImageView(getApplicationContext());
+                myView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                myView.setLayoutParams(new
+                        ImageSwitcher.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                return myView;
+            }
+        });
+        mSwitcher.setInAnimation(AnimationUtils.loadAnimation(this,
+                android.R.anim.fade_in));
+        mSwitcher.setOutAnimation(AnimationUtils.loadAnimation(this,
+                android.R.anim.fade_out));
+
+        mSwitcher.setImageDrawable(getResources().getDrawable(R.drawable.brick));
+
+
         //set up imageview onclick
-        ImageView selectImage = (ImageView) findViewById(R.id.imageView);
-        selectImage.setOnClickListener(new View.OnClickListener() {
+        //ImageView selectImage = (ImageView) findViewById(R.id.imageView);
+        mSwitcher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("onClick", "selectImage click");
@@ -145,12 +182,7 @@ public class newTown extends AppCompatActivity {
         title_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("onClick", "selectImage click");
-                Intent intent = new Intent(getApplicationContext(), NewTitleActivity.class);
-                //intent.putExtra(EXTRA_MESSAGE, "asdf");
-                startActivityForResult(intent, NEW_TITLE_REQUEST);
-                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
-                //finish();// kill current activity
+
 
             }
         });
@@ -164,6 +196,8 @@ public class newTown extends AppCompatActivity {
                 startActivityForResult(intent, NEW_ADDRESS_REQUEST);
                 overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
                 //finish();// kill current activity
+
+
 
             }
         });
@@ -234,55 +268,98 @@ public class newTown extends AppCompatActivity {
 
     }
 
-    private void animate(final ImageView imageView, final Uri images[], final int imageIndex, final boolean forever) {
+//    private void animate4Swicher() {
+//
+//        int fadeInDuration = 500; // Configure time values here
+//        int timeBetween = 3000;
+//        int fadeOutDuration = 1000;
+//
+//
+//        Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+//        fadeIn.setInterpolator(new DecelerateInterpolator()); // add this
+//        fadeIn.setDuration(fadeInDuration);
+//
+//        Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+//        fadeOut.setInterpolator(new AccelerateInterpolator()); // and this
+//        fadeOut.setStartOffset(fadeInDuration + timeBetween);
+//        fadeOut.setDuration(fadeOutDuration);
+//
+//
+//        AnimationSet animation = new AnimationSet(false); // change to false
+//        animation.addAnimation(fadeIn);
+//        animation.addAnimation(fadeOut);
+//        animation.setRepeatCount(1);
+//
+//        animation.setAnimationListener(new Animation.AnimationListener() {
+//            public void onAnimationEnd(Animation animation) {
+//                if (images.length - 1 > imageIndex) {
+//                    animate(imageView, images, imageIndex + 1,forever); //Calls itself until it gets to the end of the array
+//                }
+//                else {
+//                    if (forever == true){
+//                        animate(imageView, images, 0,forever);  //Calls itself to start the animation all over again in a loop if forever = true
+//                    }
+//                }
+//            }
+//            public void onAnimationRepeat(Animation animation) {
+//                // TODO Auto-generated method stub
+//            }
+//            public void onAnimationStart(Animation animation) {
+//                // TODO Auto-generated method stub
+//            }
+//        });
+//
+//    }
 
-        //imageView <-- The View which displays the images
-        //images[] <-- Holds R references to the images to display
-        //imageIndex <-- index of the first image to show in images[]
-        //forever <-- If equals true then after the last image it starts all over again with the first image resulting in an infinite loop. You have been warned.
-
-        int fadeInDuration = 500; // Configure time values here
-        int timeBetween = 3000;
-        int fadeOutDuration = 1000;
-
-        imageView.setVisibility(View.INVISIBLE);    //Visible or invisible by default - this will apply when the animation ends
-       // imageView.setImageResource(images[imageIndex]);
-        imageView.setImageURI(images[imageIndex]); // use Uri as resource
-
-        Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
-        fadeIn.setInterpolator(new DecelerateInterpolator()); // add this
-        fadeIn.setDuration(fadeInDuration);
-
-        Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
-        fadeOut.setInterpolator(new AccelerateInterpolator()); // and this
-        fadeOut.setStartOffset(fadeInDuration + timeBetween);
-        fadeOut.setDuration(fadeOutDuration);
-
-        AnimationSet animation = new AnimationSet(false); // change to false
-        animation.addAnimation(fadeIn);
-        animation.addAnimation(fadeOut);
-        animation.setRepeatCount(1);
-        imageView.setAnimation(animation);
-
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            public void onAnimationEnd(Animation animation) {
-                if (images.length - 1 > imageIndex) {
-                    animate(imageView, images, imageIndex + 1,forever); //Calls itself until it gets to the end of the array
-                }
-                else {
-                    if (forever == true){
-                        animate(imageView, images, 0,forever);  //Calls itself to start the animation all over again in a loop if forever = true
-                    }
-                }
-            }
-            public void onAnimationRepeat(Animation animation) {
-                // TODO Auto-generated method stub
-            }
-            public void onAnimationStart(Animation animation) {
-                // TODO Auto-generated method stub
-            }
-        });
-    }
+//    private void animate(final ImageView imageView, final Uri images[], final int imageIndex, final boolean forever) {
+//
+//        //imageView <-- The View which displays the images
+//        //images[] <-- Holds R references to the images to display
+//        //imageIndex <-- index of the first image to show in images[]
+//        //forever <-- If equals true then after the last image it starts all over again with the first image resulting in an infinite loop. You have been warned.
+//
+//        int fadeInDuration = 500; // Configure time values here
+//        int timeBetween = 3000;
+//        int fadeOutDuration = 1000;
+//
+//        imageView.setVisibility(View.INVISIBLE);    //Visible or invisible by default - this will apply when the animation ends
+//       // imageView.setImageResource(images[imageIndex]);
+//        imageView.setImageURI(images[imageIndex]); // use Uri as resource
+//
+//        Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+//        fadeIn.setInterpolator(new DecelerateInterpolator()); // add this
+//        fadeIn.setDuration(fadeInDuration);
+//
+//        Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+//        fadeOut.setInterpolator(new AccelerateInterpolator()); // and this
+//        fadeOut.setStartOffset(fadeInDuration + timeBetween);
+//        fadeOut.setDuration(fadeOutDuration);
+//
+//        AnimationSet animation = new AnimationSet(false); // change to false
+//        animation.addAnimation(fadeIn);
+//        animation.addAnimation(fadeOut);
+//        animation.setRepeatCount(1);
+//        imageView.setAnimation(animation);
+//
+//        animation.setAnimationListener(new Animation.AnimationListener() {
+//            public void onAnimationEnd(Animation animation) {
+//                if (images.length - 1 > imageIndex) {
+//                    animate(imageView, images, imageIndex + 1,forever); //Calls itself until it gets to the end of the array
+//                }
+//                else {
+//                    if (forever == true){
+//                        animate(imageView, images, 0,forever);  //Calls itself to start the animation all over again in a loop if forever = true
+//                    }
+//                }
+//            }
+//            public void onAnimationRepeat(Animation animation) {
+//                // TODO Auto-generated method stub
+//            }
+//            public void onAnimationStart(Animation animation) {
+//                // TODO Auto-generated method stub
+//            }
+//        });
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -376,23 +453,90 @@ public class newTown extends AppCompatActivity {
 
             if (resultCode == RESULT_FIRST_USER) {  //final confirmed return
                 ArrayList<Uri> arrayList = data.getParcelableArrayListExtra("multipleImage");
-                Uri[] uriList = arrayList.toArray(new Uri[0]);  //put URiaa arrayList to array
+                final Uri[] uriList = arrayList.toArray(new Uri[0]);  //put URiaa arrayList to array
                 //String result = data.getStringExtra("result");
                 //Log.i("onActivityResult", "result = " + result);
 
-
+                Log.i("mSwitcher", "uriList[0] = "+uriList[0].toString());
 
 
                 //set Uri list as resource
-                ImageView selectImage = (ImageView) findViewById(R.id.imageView);
+                //ImageView selectImage = (ImageView) findViewById(R.id.imageView);
                 //selectImage.setImageURI(Uri.parse(result));
                 //imageUri = Uri.parse(result);
                 ImageView c = (ImageView) findViewById(R.id.checkbox_0);
                 c.setImageResource(R.drawable.ic_check_box_white_24dp);
 
-                int imagesToShow[] = { R.drawable.door, R.drawable.corner,R.drawable.light };
-                animate(selectImage, uriList, 0,true);  //start animation
 
+                //start animation
+
+                (new Thread(new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        while (!Thread.interrupted())
+                            try
+                            {
+                                Thread.sleep(3000);  //3s
+                                runOnUiThread(new Runnable() // start actions in UI thread
+                                {
+
+                                    @Override
+                                    public void run()
+                                    {
+                                        Log.i("mSwitcher", "imageCount outside = "+imageCount);
+                                        if(imageCount<uriList.length) {
+                                            Log.i("mSwitcher", "imageCount = "+imageCount);
+                                            Log.i("mSwitcher", "riList[imageCount] = "+uriList[imageCount].toString());
+                                            getApplicationContext().grantUriPermission("zhenyuyang.cec150.ece.ucsb.edu.project", uriList[imageCount],
+                                                    Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                            mSwitcher.setImageURI(uriList[imageCount]);
+                                            imageCount++;
+                                        }
+                                        else{
+                                            imageCount = 0;
+                                            Log.i("mSwitcher", "imageCount = "+imageCount);
+                                            Log.i("mSwitcher", "riList[imageCount] = "+uriList[imageCount].toString());
+                                            getApplicationContext().grantUriPermission("zhenyuyang.cec150.ece.ucsb.edu.project", uriList[imageCount],
+                                                    Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                            mSwitcher.setImageURI(uriList[imageCount]);
+                                            imageCount++;
+                                        }
+
+//                                        //displayData(); // this action have to be in UI thread
+//                                        if(imageCount==0) {
+//                                            mSwitcher.setImageResource(R.drawable.door);
+//                                            imageCount++;
+//                                        }
+//                                        else if(imageCount==1){
+//                                            mSwitcher.setImageResource(R.drawable.light);
+//                                            imageCount++;
+//                                        }
+//                                        else if(imageCount==2){
+//                                            mSwitcher.setImageResource(R.drawable.corner);
+//                                            imageCount++;
+//                                        }
+//                                        else if(imageCount==3){
+//                                            mSwitcher.setImageResource(R.drawable.mc);
+//                                            imageCount++;
+//                                        }
+//                                        else{
+//                                            imageCount = 0;
+//                                        }
+
+                                    }
+                                });
+                            }
+                            catch (InterruptedException e)
+                            {
+                                // ooops
+                            }
+                    }
+                })).start(); // the while thread will start in BG thread
+
+                //end of animation
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Log.i("onActivityResult", "NEW_PHOTO_REQUEST RESULT_CANCELED");
@@ -563,6 +707,21 @@ public class newTown extends AppCompatActivity {
 
         TextView title = (TextView) view.findViewById(R.id.title1);
         title.setTextColor(Color.GRAY);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        mSwitcher.setImageResource(mImageIds[position]);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public View makeView() {
+        return null;
     }
 
 
